@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken")
-const key = process.env.SECRETKEY || "INIMASIHDEVELOP"
+const key = "INIMASIHDEVELOP"
 
 
 const createToken = (payload) => {
