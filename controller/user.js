@@ -8,6 +8,8 @@ const {
     createToken
 } = require('../helper/jwt')
 
+const transporter = require("../helper/nodemailer")
+
 class ControllerUser {
     static async registerUser(req, res, next) {
         try {
@@ -23,6 +25,28 @@ class ControllerUser {
                 username: user.username,
                 email: user.email,
             })
+
+            let notif = {
+                from: 'rodheytestmail@gmail.com', // sender address
+                to: user.email, // list of receivers
+                subject: "Register Succes!!", // Subject line
+                text: `Hello ${user.name} Thank you for your registration!
+                    Welcome in my web Badminton Lover
+                    name: ${user.name},
+                    email: ${user.email},
+                    phoneNumber: ${user.phoneNumber}
+                    You have bought these stuff :
+                    `
+            }
+
+            transporter.sendMail(notif, (err, data) => {
+                if (err) {
+                    console.log(err)
+                    next(err)
+                } else {
+                    console.log(`Email has been sent`);
+                }
+            });
         } catch (err) {
             next(err)
         }
@@ -30,7 +54,6 @@ class ControllerUser {
 
     static async loginUser(req, res, next) {
         try {
-            console.log('masuk')
             let input = {
                 email: req.body.email,
                 password: req.body.password
