@@ -30,6 +30,7 @@ class ControllerUser {
 
     static async loginUser(req, res, next) {
         try {
+            console.log('masuk')
             let input = {
                 email: req.body.email,
                 password: req.body.password
@@ -62,7 +63,6 @@ class ControllerUser {
             let token = {
                 id: user.id,
                 username: user.username,
-                role: user.role
             }
             token = createToken(token)
             if (!token) {
