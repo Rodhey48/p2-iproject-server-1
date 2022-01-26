@@ -11,9 +11,63 @@ const getRangking = async function (req, res, next) {
 };
 
 
+const getRangkingMs = async function (req, res, next) {
+    try {
+        const result = await axios.get("https://www.bwfshuttleapi.com/rankings/api/MS")
+        return result.data
+    } catch (err) {
+        next(err)
+    }
+};
+
+
+const getRangkingWs = async function (req, res, next) {
+    try {
+        const result = await axios.get("https://www.bwfshuttleapi.com/rankings/api/WS")
+        return result.data
+    } catch (err) {
+        next(err)
+    }
+};
+
+const getRangkingMd = async function (req, res, next) {
+    try {
+        const result = await axios.get("https://www.bwfshuttleapi.com/rankings/api/MD")
+        return result.data
+    } catch (err) {
+        next(err)
+    }
+};
+
+const getRangkingWd = async function (req, res, next) {
+    try {
+        const result = await axios.get("https://www.bwfshuttleapi.com/rankings/api/WD")
+        return result.data
+    } catch (err) {
+        next(err)
+    }
+};
+
+const getRangkingXd = async function (req, res, next) {
+    try {
+        const result = await axios.get("https://www.bwfshuttleapi.com/rankings/api/XD")
+        return result.data
+    } catch (err) {
+        next(err)
+    }
+};
+
+
 // (async () => {
 //     let result = await getRangking()
 //     console.log(result)
 // })()
 
-module.exports = getRangking
+module.exports = {
+    getRangking,
+    getRangkingMs,
+    getRangkingWs,
+    getRangkingMd,
+    getRangkingWd,
+    getRangkingXd
+}

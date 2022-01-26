@@ -18,9 +18,10 @@ app.use(express.urlencoded({
 }))
 
 
-cron.schedule(' 1 17 * * *', async (_) => {
-    console.log("'tunngu")
+cron.schedule(' 6 9 * * *', async (_) => {
+    console.log("fleching news")
     await getNews()
+    console.log("done")
 })
 
 
