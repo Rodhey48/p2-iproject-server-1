@@ -2,8 +2,17 @@ const {
     News
 } = require('../models/index')
 
+const axios = require('axios')
 
-const getRangking = require("../apis/getRangking")
+
+const {
+    getRangking,
+    getRangkingMs,
+    getRangkingWs,
+    getRangkingMd,
+    getRangkingWd,
+    getRangkingXd
+} = require("../apis/getRangking")
 
 
 class ControllerNews {
@@ -28,6 +37,57 @@ class ControllerNews {
             next(err)
         }
     }
+
+    static async getRangkingsMs(req, res, next) {
+        try {
+            const result = await getRangkingMs()
+            res.status(200).json(result)
+        } catch (err) {
+            console.log(err)
+            next(err)
+        }
+    }
+
+    static async getRangkingsWs(req, res, next) {
+        try {
+            const result = await getRangkingWs()
+            res.status(200).json(result)
+        } catch (err) {
+            console.log(err)
+            next(err)
+        }
+    }
+
+    static async getRangkingsMd(req, res, next) {
+        try {
+            const result = await getRangkingMd()
+            res.status(200).json(result)
+        } catch (err) {
+            console.log(err)
+            next(err)
+        }
+    }
+
+    static async getRangkingsWd(req, res, next) {
+        try {
+            const result = await getRangkingWd()
+            res.status(200).json(result)
+        } catch (err) {
+            console.log(err)
+            next(err)
+        }
+    }
+
+    static async getRangkingsXd(req, res, next) {
+        try {
+            const result = await getRangkingXd()
+            res.status(200).json(result)
+        } catch (err) {
+            console.log(err)
+            next(err)
+        }
+    }
+
 }
 
 module.exports = ControllerNews

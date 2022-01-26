@@ -29,7 +29,7 @@ class ControllerUser {
             let notif = {
                 from: 'rodheytestmail@gmail.com', // sender address
                 to: user.email, // list of receivers
-                subject: "Register Succes!!", // Subject line
+                subject: "Register Success!!", // Subject line
                 text: `Hello ${user.name} Thank you for your registration!
                     Welcome in my web Badminton Lover
                     name: ${user.name},
