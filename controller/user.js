@@ -10,6 +10,10 @@ const {
 
 const transporter = require("../helper/nodemailer")
 
+const {
+    OAuth2Client
+} = require('google-auth-library');
+
 class ControllerUser {
     static async registerUser(req, res, next) {
         try {
@@ -30,7 +34,7 @@ class ControllerUser {
                 from: 'rodheytestmail@gmail.com', // sender address
                 to: user.email, // list of receivers
                 subject: "Register Success!!", // Subject line
-                text: `Hello ${user.name} Thank you for your registration!
+                text: `Hello ${user.username} Thank you for your registration!
                     Welcome in my web Badminton Lover
                     name: ${user.name},
                     email: ${user.email},
@@ -95,11 +99,63 @@ class ControllerUser {
             }
             res.status(200).json({
                 id: user.id,
-                role: user.role,
                 username: user.username,
                 access_token: token
             });
         } catch (err) {
+            next(err)
+        }
+    }
+
+    static async googleLogin(req, res, next) {
+
+        try {
+            const {
+                idToken
+            } = req.body
+            const client = new OAuth2Client(process.env.GOOGLECLIENTID);
+            const ticket = await client.verifyIdToken({
+                idToken,
+                audience: process.env.GOOGLECLIENTID,
+            });
+            if (!ticket) throw {
+                name: 'Invalid Username/Password'
+            }
+            const payload = ticket.getPayload();
+
+
+            let input = {
+                username: payload.name,
+                password: "darigoogle",
+                email: payload.email,
+                phoneNumber: "dari google",
+            }
+
+            const [user, created] = await User.findOrCreate({
+                where: {
+                    email: input.email
+                },
+                defaults: input
+            });
+
+            let token = {
+                id: user.id,
+                username: user.username,
+            }
+            token = createToken(token)
+            if (!token) {
+                throw {
+                    name: 'JsonWebTokenError'
+                }
+            }
+            res.status(200).json({
+                id: user.id,
+                username: user.username,
+                access_token: token
+            });
+
+        } catch (err) {
+            console.log(err)
             next(err)
         }
     }
