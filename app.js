@@ -8,7 +8,7 @@ const app = express()
 const getNews = require("./apis/getNews")
 let cron = require('node-cron')
 
-const port = 3000
+const port = process.env.PORT || 3000
 
 const index = require('./routes/index')
 const errorHandler = require('./midleware/errorHandler')
@@ -21,7 +21,7 @@ app.use(express.urlencoded({
 }))
 
 
-cron.schedule(' 49 21 * * *', async (_) => {
+cron.schedule(' 5 10 * * *', async (_) => {
     console.log("fleching news")
     await getNews()
     console.log("done")
