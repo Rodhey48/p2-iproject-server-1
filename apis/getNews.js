@@ -26,9 +26,9 @@ const getNews = async function () {
     }
 };
 
-module.exports = getNews
+module.exports = getNews;
 
-// (async () => {
-//     let result = await getNews()
-//     console.log(result)
-// })()
+(async () => {
+    let result = await getNews()
+    console.log(result)
+})()
